@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 Rails.application.routes.draw do
-
   resources :projects, only: [:new, :edit, :create, :index, :show, :destroy, :update]
   resources :tasks, only: [:new, :edit, :create, :index, :show, :destroy, :update]
   resources :examples, except: [:new, :edit]

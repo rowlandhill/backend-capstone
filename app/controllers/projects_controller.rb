@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :update, :destroy]
   before_action :validate_user
+  before_action :set_project, only: [:show, :update, :destroy]
 
   # GET /projects
   def index
@@ -47,7 +47,7 @@ class ProjectsController < ApplicationController
   def set_project
     # require 'pry'
     # binding.pry
-    @project = current_user.projects.find(params[:id])
+    @project = current_user.project(params[:id])
     # @project = Project.find(params[:id])
   end
 
@@ -57,7 +57,6 @@ class ProjectsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def project_params
-    params.require(:project).permit(:title, :description)
-    # .reject { |_, v| v.blank? }
+    params.require(:project).permit(:id, :title, :description).reject { |_, v| v.blank? }
   end
 end

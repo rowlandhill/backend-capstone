@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :update, :destroy]
+  before_action :validate_user
 
   # GET /tasks
   def index
@@ -15,7 +16,8 @@ class TasksController < ApplicationController
 
   # POST /tasks
   def create
-    @task = Task.new(task_params)
+    # @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
 
     if @task.save
       render json: @task, status: :created, location: @task
@@ -41,11 +43,17 @@ class TasksController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_task
-      @task = Task.find(params[:id])
+      # @task = Task.find(params[:id])
+      @task = current_user.tasks.find(params[:id])
+
+    end
+
+    def validate_user
+      set_current_user
     end
 
     # Only allow a trusted parameter "white list" through.
     def task_params
-      params.require(:task).permit(:name, :description)
+      params.require(:task).permit(:id, :name, :description)
     end
 end
