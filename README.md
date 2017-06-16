@@ -4,6 +4,10 @@
 
 ### build + together is an app that allows homeowners to stay on the same page as their contractors.  Both parties will know exactly where they stand before, during and after the process.
 
+### Installation:
+npm install for front-end
+bundle install for back-end
+
 The application works by using a PostgreSQL database on the backend to store the users credentials and projects.  Using AJAX calls, users can access the information they require.  Users may only have one Project in existence at one time, but this will change as the app evolves.
 
 Like my previous app, my approach to this changed very quickly.  Originally, I wanted to build the front-end with Ember.js.  However, since I also originally wanted to have a join table, Ember.js became an obstacle, and I eventually had to give up the join table to focus on CRUD actions for the relationships between the users and projects.
@@ -73,6 +77,16 @@ I also want customer-users to eventually be able to list their needs, which will
 
 Users have one Project
 Projects belong to User
+
+## API Routes
+
+# frozen_string_literal: true
+  resources :projects, only: [:new, :edit, :create, :index, :show, :destroy, :update]
+  post '/sign-up' => 'users#signup'
+  post '/sign-in' => 'users#signin'
+  delete '/sign-out/:id' => 'users#signout'
+  patch '/change-password/:id' => 'users#changepw'
+  resources :users, only: [:index, :show]
 
 ## Links to the application:
 
