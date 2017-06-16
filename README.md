@@ -80,7 +80,6 @@ Projects belong to User
 
 ## API Routes
 
-# frozen_string_literal: true
   resources :projects, only: [:new, :edit, :create, :index, :show, :destroy, :update]
   post '/sign-up' => 'users#signup'
   post '/sign-in' => 'users#signin'
